@@ -1,0 +1,39 @@
+
+    create table game (
+        id int4 not null,
+        ended timestamp,
+        gameboard varchar(255),
+        gamestatus varchar(255),
+        saved timestamp,
+        started timestamp,
+        player1 int4,
+        player2 int4,
+        winner int4,
+        primary key (id)
+    );
+
+    create table users (
+        id int4 not null,
+        email varchar(255),
+        enabled boolean not null,
+        password varchar(255),
+        username varchar(255),
+        primary key (id)
+    );
+
+    alter table game 
+        add constraint FK_lcxgn9cg0p3l1xpcgw1gbthcb 
+        foreign key (player1) 
+        references users;
+
+    alter table game 
+        add constraint FK_lxc0s23dob5g80eugyhwg2fpf 
+        foreign key (player2) 
+        references users;
+
+    alter table game 
+        add constraint FK_3af3dfnvw9gqac375v5rx1hs1 
+        foreign key (winner) 
+        references users;
+
+    create sequence hibernate_sequence;

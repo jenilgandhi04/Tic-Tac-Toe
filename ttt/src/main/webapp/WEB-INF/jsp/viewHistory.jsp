@@ -1,0 +1,45 @@
+<%@page import="java.util.List"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>History</title>
+</head>
+<body>
+	
+	<div align="center"><h4>Game History</h4>
+	<table border='1'>
+	<tr><td>Number of games completed :</td><td>${noOfComp}</td></tr>
+	<tr><td>Number of 1-player games completed :</td><td>${noOfPlayer1}</td></tr>
+	<tr><td>Number of 2-player games completed :</td><td>${noOfPlayer2}</td></tr>
+	<tr><td>Win rate against AI (%) :</td><td>${winRateAI}</td></tr>
+	<tr><td>Win rate against human players (%) :</td><td>${winRateHuman}</td></tr>
+	</table>
+	<br/>
+	<p>Games Played in Last Month :</p>
+	<table border='1'>
+		<tr>
+			<th>Sr #</th>
+			<th>Opponent</th>
+			<th>Game Length (Sec.)</th>
+			<th>Winner</th>
+		</tr>
+		<%if(request.getAttribute("listOfGames") !=null && ((List)request.getAttribute("listOfGames")).size()>0){ %>
+		<c:forEach var="i" begin="0" end="${fn:length(listOfGames)-1}">
+			<c:set var="game" scope="request" value="${listOfGames.get(i)}" />
+			<tr>
+				<td>${i+1}</td>
+				<td>${game.player2.playerName}</td>
+				<td>${game.gameLength}</td>
+				<td>${game.winner.playerName}</td>
+			</tr>
+		</c:forEach>
+		<%} %>
+	</table>
+	</div>
+</body>
+</html>
